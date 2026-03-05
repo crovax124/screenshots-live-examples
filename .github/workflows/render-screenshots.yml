@@ -1,0 +1,35 @@
+name: Render Screenshots
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "examples/**/*.yaml"
+
+  workflow_dispatch:
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install yq
+        run: |
+          sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+          sudo chmod +x /usr/local/bin/yq
+
+      - name: Render all apps
+        env:
+          API_KEY: ${{ secrets.SCREENSHOTS_LIVE_API_KEY }}
+        run: |
+          chmod +x scripts/render-all.sh
+          ./scripts/render-all.sh
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: rendered-screenshots
+          path: output/*.zip
+          retention-days: 30

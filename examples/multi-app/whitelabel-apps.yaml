@@ -1,0 +1,18 @@
+# Whitelabel app registry
+#
+# Each entry maps to a folder in configs/ and screenshots/
+# Used by scripts/render-all.sh to loop through all apps
+
+apps:
+  - slug: app-alpha
+    name: "Alpha Delivery"
+    description: "Delivery tracking app — Alpha brand"
+
+  - slug: app-beta
+    name: "Beta Express"
+    description: "Delivery tracking app — Beta brand"
+
+  # Add more apps here:
+  # - slug: app-gamma
+  #   name: "Gamma Logistics"
+  #   description: "Delivery tracking app — Gamma brand"

@@ -1,0 +1,24 @@
+# Example: Single app render config with hosted image URLs
+#
+# Use this when your screenshots are already in cloud storage (GCS, S3, etc.)
+# No file uploads needed — just send this YAML with Content-Type: text/yaml
+#
+# Usage:
+#   curl -s -X POST https://api.screenshots.live/render/api \
+#     -H "Authorization: Bearer $API_KEY" \
+#     -H "Content-Type: text/yaml" \
+#     --data-binary @render-with-urls.yaml
+
+templateId: "YOUR-TEMPLATE-UUID-HERE"
+items:
+  - itemId: "text-headline-uuid"
+    type: Text
+    content: "Track your deliveries in real time"
+
+  - itemId: "text-subtitle-uuid"
+    type: Text
+    content: "Available on iOS and Android"
+
+  - itemId: "screenshot-main-uuid"
+    type: Image
+    url: "https://storage.googleapis.com/your-bucket/screenshots/home-screen.png"

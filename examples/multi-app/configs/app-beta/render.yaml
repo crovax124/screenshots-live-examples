@@ -1,0 +1,15 @@
+# App Beta — render config
+
+templateId: "YOUR-TEMPLATE-UUID-HERE"
+items:
+  - itemId: "text-headline-uuid"
+    type: Text
+    content: "Beta Express — Lightning Fast"
+
+  - itemId: "text-subtitle-uuid"
+    type: Text
+    content: "Your deliveries, always on time"
+
+  - itemId: "screenshot-main-uuid"
+    type: Image
+    url: "picture://home-screen.png"

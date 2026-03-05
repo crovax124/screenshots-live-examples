@@ -1,0 +1,18 @@
+# App Alpha — render config
+#
+# Same template as all other whitelabel variants,
+# just different text and screenshots per brand.
+
+templateId: "YOUR-TEMPLATE-UUID-HERE"
+items:
+  - itemId: "text-headline-uuid"
+    type: Text
+    content: "Alpha Delivery — Fast & Reliable"
+
+  - itemId: "text-subtitle-uuid"
+    type: Text
+    content: "Track every package in real time"
+
+  - itemId: "screenshot-main-uuid"
+    type: Image
+    url: "picture://home-screen.png"

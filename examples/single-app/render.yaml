@@ -1,0 +1,26 @@
+# Example: Single app render config with picture:// uploads
+#
+# Download a pre-filled version of this from the template editor:
+#   1. Open your template in the browser editor
+#   2. Click "Download YAML"
+#   3. Modify the values below
+#
+# Usage:
+#   curl -s -X POST https://api.screenshots.live/render/render-with-pictures \
+#     -H "Authorization: Bearer $API_KEY" \
+#     -F "yaml=@render.yaml" \
+#     -F "pictures=@my-app-screenshot.png"
+
+templateId: "YOUR-TEMPLATE-UUID-HERE"
+items:
+  - itemId: "text-headline-uuid"
+    type: Text
+    content: "Track your deliveries in real time"
+
+  - itemId: "text-subtitle-uuid"
+    type: Text
+    content: "Available on iOS and Android"
+
+  - itemId: "screenshot-main-uuid"
+    type: Image
+    url: "picture://my-app-screenshot.png"
