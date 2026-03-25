@@ -1,0 +1,47 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Generate and upload app store screenshots"
+  lane :screenshots do
+    # Render screenshots via Screenshots.live API
+    screenshotslive(
+      api_key: ENV["SCREENSHOTSLIVE_API_KEY"],
+      yaml_config: "./screenshots.yml",
+      output_directory: "./fastlane/screenshots"
+    )
+
+    # Upload to App Store Connect
+    deliver(
+      skip_metadata: true,
+      skip_binary_upload: true,
+      overwrite_screenshots: true
+    )
+  end
+
+  desc "Generate screenshots only (no upload)"
+  lane :render_screenshots do
+    screenshotslive(
+      api_key: ENV["SCREENSHOTSLIVE_API_KEY"],
+      yaml_config: "./screenshots.yml",
+      output_directory: "./screenshots"
+    )
+  end
+end
+
+platform :android do
+  desc "Generate Google Play screenshots"
+  lane :screenshots do
+    screenshotslive(
+      api_key: ENV["SCREENSHOTSLIVE_API_KEY"],
+      yaml_config: "./screenshots-android.yml",
+      output_directory: "./fastlane/metadata/android"
+    )
+
+    supply(
+      skip_upload_apk: true,
+      skip_upload_aab: true,
+      skip_upload_metadata: true,
+      skip_upload_changelogs: true
+    )
+  end
+end
