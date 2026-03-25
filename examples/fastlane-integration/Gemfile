@@ -1,4 +1,4 @@
 source "https://rubygems.org"
 
-gem "fastlane"
-gem "fastlane-plugin-screenshotslive"
+gem "fastlane", "~> 2.232"
+gem "fastlane-plugin-screenshotslive", "~> 0.3"

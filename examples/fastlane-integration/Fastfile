@@ -1,16 +1,30 @@
 default_platform(:ios)
 
-platform :ios do
-  desc "Generate and upload app store screenshots"
-  lane :screenshots do
-    # Render screenshots via Screenshots.live API
-    screenshotslive(
-      api_key: ENV["SCREENSHOTSLIVE_API_KEY"],
-      yaml_config: "./screenshots.yml",
-      output_directory: "./fastlane/screenshots"
-    )
+LOCALES = {
+  "en-US" => {},
+  "de-DE" => {
+    "text-item-uuid" => { "content" => "Deine neue Funktion" },
+  },
+  "es-ES" => {
+    "text-item-uuid" => { "content" => "Tu nueva función" },
+  },
+  "fr-FR" => {
+    "text-item-uuid" => { "content" => "Votre nouvelle fonctionnalité" },
+  },
+}
 
-    # Upload to App Store Connect
+platform :ios do
+  desc "Generate screenshots for all locales and upload to App Store Connect"
+  lane :screenshots do
+    LOCALES.each do |locale, overrides|
+      screenshotslive(
+        api_key: ENV["SCREENSHOTSLIVE_API_KEY"],
+        yaml_config: "./screenshots.yml",
+        output_directory: "./fastlane/screenshots/#{locale}",
+        overrides: overrides
+      )
+    end
+
     deliver(
       skip_metadata: true,
       skip_binary_upload: true,
@@ -18,8 +32,21 @@ platform :ios do
     )
   end
 
+  desc "Generate screenshots with local device screenshots injected"
+  lane :screenshots_with_overrides do
+    screenshotslive(
+      api_key: ENV["SCREENSHOTSLIVE_API_KEY"],
+      yaml_config: "./screenshots.yml",
+      output_directory: "./fastlane/screenshots/en-US",
+      overrides: {
+        "text-item-uuid" => { "content" => "New Feature", "color" => "#FF6B00" },
+        "device-frame-uuid" => { "screenshotUrl" => "./screens/home.png" },
+      }
+    )
+  end
+
   desc "Generate screenshots only (no upload)"
-  lane :render_screenshots do
+  lane :render_only do
     screenshotslive(
       api_key: ENV["SCREENSHOTSLIVE_API_KEY"],
       yaml_config: "./screenshots.yml",
@@ -29,13 +56,16 @@ platform :ios do
 end
 
 platform :android do
-  desc "Generate Google Play screenshots"
+  desc "Generate Google Play screenshots for all locales"
   lane :screenshots do
-    screenshotslive(
-      api_key: ENV["SCREENSHOTSLIVE_API_KEY"],
-      yaml_config: "./screenshots-android.yml",
-      output_directory: "./fastlane/metadata/android"
-    )
+    LOCALES.each do |locale, overrides|
+      screenshotslive(
+        api_key: ENV["SCREENSHOTSLIVE_API_KEY"],
+        yaml_config: "./screenshots-android.yml",
+        output_directory: "./fastlane/metadata/android/#{locale}/images/phoneScreenshots",
+        overrides: overrides
+      )
+    end
 
     supply(
       skip_upload_apk: true,
