@@ -1,0 +1,27 @@
+name: Render screenshots
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  screenshots:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Render via Screenshots.live
+        uses: screenshots-live/render-screenshots-action@v1
+        with:
+          api-key: ${{ secrets.SCREENSHOTS_LIVE_API_KEY }}
+          template-id: ${{ vars.SCREENSHOTS_TEMPLATE_ID }}
+          yaml-path: ./screenshots/template.yaml
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: ./screenshots/output/
+          if-no-files-found: error

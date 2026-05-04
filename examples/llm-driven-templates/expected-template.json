@@ -1,0 +1,39 @@
+{
+  "name": "LLM-driven example — fitness app",
+  "screenSizeCategory": "Mobile",
+  "screenCount": 3,
+  "items": [
+    {
+      "type": "CanvasBackground",
+      "x": 0,
+      "y": 0,
+      "zIndex": 0,
+      "properties": {
+        "fill": "linear-gradient(180deg, #1E3A8A 0%, #3B82F6 100%)"
+      }
+    },
+    {
+      "type": "Text",
+      "x": 80,
+      "y": 120,
+      "zIndex": 10,
+      "properties": {
+        "text": "Track every workout",
+        "fontSize": 64,
+        "fontWeight": "bold",
+        "color": "#FFFFFF",
+        "textAlign": "left"
+      }
+    },
+    {
+      "type": "DeviceFrame",
+      "x": 80,
+      "y": 380,
+      "zIndex": 5,
+      "properties": {
+        "frameId": "iphone-15-pro",
+        "screenshotUrl": ""
+      }
+    }
+  ]
+}
